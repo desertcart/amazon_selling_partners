@@ -1,0 +1,11 @@
+/.idea/
+.i
+/.bundle/
+/.yardoc
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/
+sample_usage.rb
