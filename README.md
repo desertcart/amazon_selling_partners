@@ -156,3 +156,29 @@ feed_result = AmazonSellingPartners::FeedResult.new(url: result_doc_op.result.re
 result_op = AmazonSellingPartners::FeedResult::Operation::Find.new(client:, resource: feed_result)
 result_op.perform
 ```
+
+### Example of fetching offers for a product by ASIN
+```ruby
+client = AmazonSellingPartners::Client.new(
+  sandbox: false,
+  debug: false,
+  # eu region also covers UAE and SA
+  region: 'eu',
+  refresh_token: ENV['AMAZON_SELLING_PARTNERS_API_REFRESH_TOKEN'],
+  client_id: ENV['AMAZON_SELLING_PARTNERS_API_CLIENT_ID'],
+  client_secret: ENV['AMAZON_SELLING_PARTNERS_API_CLIENT_SECRET'],
+  aws_access_key_id: ENV['AMAZON_SELLING_PARTNERS_API_AWS_ACCESS_KEY_ID'],
+  aws_secret_access_key: ENV['AMAZON_SELLING_PARTNERS_API_AWS_SECRET_ACCESS_KEY'],
+  # if you skip setting the following lambdas, the client will request a new token before each API call
+  get_access_token: ->(access_token_key) { Rails.cache.read("AMAZON_SELLING_PARTNERS_API_TOKEN-#{access_token_key}") },
+  save_access_token: ->(access_token_key, token) { Rails.cache.write(
+    "AMAZON_SELLING_PARTNERS_API_TOKEN-#{access_token_key}",
+    token[:access_token],
+    expires_in: token[:expires_in] - 60
+  ) }
+)
+
+resource = AmazonSellingPartners::ProductPricing.new(market_place_id: 'A2VIGQ35RCS4UG', asin: 'B07F2GC4S9')
+operation = AmazonSellingPartners::ProductPricing::Operation::Find.new(client: client, resource: resource)
+operation.perform
+```
