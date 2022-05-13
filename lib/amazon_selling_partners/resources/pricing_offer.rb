@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'feed_content'
-require_relative '../types/array'
-
 module AmazonSellingPartners
   class PricingOffer < AmazonSellingPartners::Resource
     attribute :seller_id, type: LedgerSync::Type::String
