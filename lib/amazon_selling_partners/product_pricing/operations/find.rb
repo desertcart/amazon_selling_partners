@@ -11,7 +11,8 @@ module AmazonSellingPartners
         end
 
         def url
-          "/products/pricing/v0/items/#{resource.asin}/offers?MarketplaceId=#{resource.market_place_id}&ItemCondition=New"
+          "/products/pricing/v0/items/#{resource.asin}/offers"\
+            "?MarketplaceId=#{resource.market_place_id}&ItemCondition=New"
         end
 
         def opts
@@ -36,4 +37,3 @@ module AmazonSellingPartners
     end
   end
 end
-
