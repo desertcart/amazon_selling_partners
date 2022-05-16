@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../encryption_detail/deserializer'
+require_relative '../pricing_offer/deserializer'
 
 module AmazonSellingPartners
   class ProductPricing
