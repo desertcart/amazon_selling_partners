@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'pricing_offer'
+
 module AmazonSellingPartners
   class ProductPricing < AmazonSellingPartners::Resource
     attribute :market_place_id, type: LedgerSync::Type::String
