@@ -7,6 +7,7 @@ module AmazonSellingPartners
     class Deserializer < AmazonSellingPartners::Deserializer
       attribute :seller_id, hash_attribute: 'SellerId'
       attribute :price, hash_attribute: 'ListingPrice.Amount'
+      attribute :currency, hash_attribute: 'ListingPrice.CurrencyCode'
       attribute :shipping_cost, hash_attribute: 'Shipping.Amount'
       attribute :shipping_country, hash_attribute: 'ShipsFrom.Country'
       attribute :condition, hash_attribute: 'SubCondition'
