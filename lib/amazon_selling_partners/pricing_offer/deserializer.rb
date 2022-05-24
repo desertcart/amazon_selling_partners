@@ -10,7 +10,7 @@ module AmazonSellingPartners
       attribute :shipping_cost, hash_attribute: 'Shipping.Amount'
       attribute :shipping_country, hash_attribute: 'ShipsFrom.Country'
       attribute :condition, hash_attribute: 'SubCondition'
-      attribute :is_buybox_winner, hash_attribute: 'IsBuyBoxWinner'
+      attribute :buybox_winner, hash_attribute: 'IsBuyBoxWinner'
     end
   end
 end

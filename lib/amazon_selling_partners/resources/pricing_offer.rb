@@ -7,6 +7,6 @@ module AmazonSellingPartners
     attribute :shipping_cost, type: LedgerSync::Type::Float
     attribute :shipping_country, type: LedgerSync::Type::String
     attribute :condition, type: LedgerSync::Type::String
-    attribute :is_buybox_winner, type: LedgerSync::Type::Boolean
+    attribute :buybox_winner, type: LedgerSync::Type::Boolean
   end
 end
