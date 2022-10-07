@@ -9,3 +9,4 @@
 /spec/reports/
 /tmp/
 sample_usage.rb
+Gemfile.lock
