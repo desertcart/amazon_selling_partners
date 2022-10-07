@@ -46,6 +46,42 @@ module AmazonSellingPartners
       @save_access_token = save_access_token
     end
 
+    def generate_authorization_url(
+      application_id:, # Our application id, looks like amzn1.sellerapps.app.0bf296b5-36a6-4942-a13e-random
+      state:, # A unique, short-lived value that is associated with our user.
+      redirect_uri: nil, # Optional, defaults to the first redirect url you've registered on your app
+      seller_central_url: 'https://sellercentral.amazon.com', # https://developer-docs.amazon.com/sp-api/docs/seller-central-urls,
+      draft: false # Set to true if our application is still in draft mode
+    )
+
+      url = "#{seller_central_url}/apps/authorize/consent?application_id=#{application_id}&state=#{state}"
+      url = "#{url}&redirect_uri=#{redirect_uri}" if redirect_uri.present?
+      url = "#{url}&version=beta" if draft
+      url
+    end
+
+    def exchange_auth_code_for_refresh_token(auth_code:) # rubocop:disable Metrics/MethodLength
+      data, status_code, headers = call_api(
+        :POST, '/auth/o2/token',
+        header_params: {
+          'Content-Type' => 'application/x-www-form-urlencoded'
+        },
+        form_params: {
+          grant_type: 'authorization_code',
+          code: auth_code,
+          client_id:,
+          client_secret:
+        }
+      )
+
+      unless data && data[:access_token]
+        raise StandardError, { code: status_code,
+                               response_headers: headers,
+                               response_body: data }.to_s
+      end
+      data
+    end
+
     def api(http_method, path, opts = {}) # rubocop:disable Metrics/MethodLength
       unsigned_request = build_request(http_method, path, opts:)
       aws_headers = auth_headers(http_method, unsigned_request.url, unsigned_request.encoded_body)
