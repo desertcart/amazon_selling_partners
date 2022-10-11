@@ -7,6 +7,7 @@ require 'logger'
 require 'tempfile'
 require 'typhoeus'
 require 'aws-sigv4'
+require_relative './errors/auth_error'
 
 module AmazonSellingPartners
   class Client # rubocop:disable Metrics/ClassLength
@@ -75,10 +76,10 @@ module AmazonSellingPartners
       )
 
       unless data && data[:access_token]
-        raise StandardError, { code: status_code,
-                               response_headers: headers,
-                               response_body: data }.to_s
+        raise AmazonSellingPartners::Errors::AuthError.new(code: status_code, response_headers: headers,
+                                                           response_body: data)
       end
+
       data
     end
 
