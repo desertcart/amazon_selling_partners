@@ -80,7 +80,7 @@ module AmazonSellingPartners
                                                            response_body: data)
       end
 
-      data
+      data[:access_token]
     end
 
     def api(http_method, path, opts = {}) # rubocop:disable Metrics/MethodLength
