@@ -11,115 +11,115 @@ module AmazonSellingPartners
         'CA' => {
           marketplace_id: 'A2EUQ1WTGCTBG2',
           region: 'na',
-          sell_central_url: 'https://sellercentral.amazon.ca'
+          seller_central_url: 'https://sellercentral.amazon.ca'
         },
         'US' => {
           marketplace_id: 'ATVPDKIKX0DER',
           region: 'na',
-          sell_central_url: 'https://sellercentral.amazon.com'
+          seller_central_url: 'https://sellercentral.amazon.com'
         },
         'MX' => {
           marketplace_id: 'A1AM78C64UM0Y8',
           region: 'na',
-          sell_central_url: 'https://sellercentral.amazon.com.mx'
+          seller_central_url: 'https://sellercentral.amazon.com.mx'
         },
         'BR' => {
           marketplace_id: 'A2Q3Y263D00KWC',
           region: 'na',
-          sell_central_url: 'https://sellercentral.amazon.com.br'
+          seller_central_url: 'https://sellercentral.amazon.com.br'
         },
 
         # Europe
         'ES' =>	{
           marketplace_id: 'A1RKKUPIHCS9HS',
           region: 'eu',
-          sell_central_url: 'https://sellercentral-europe.amazon.com'
+          seller_central_url: 'https://sellercentral-europe.amazon.com'
         },
         'UK' =>	{
           marketplace_id: 'A1F83G8C2ARO7P',
           region: 'eu',
-          sell_central_url: 'https://sellercentral-europe.amazon.com'
+          seller_central_url: 'https://sellercentral-europe.amazon.com'
         },
         'FR' =>	{
           marketplace_id: 'A13V1IB3VIYZZH',
           region: 'eu',
-          sell_central_url: 'https://sellercentral-europe.amazon.com'
+          seller_central_url: 'https://sellercentral-europe.amazon.com'
         },
         'BE' =>	{
           marketplace_id: 'AMEN7PMS3EDWL',
           region: 'eu',
-          sell_central_url: 'https://sellercentral-europe.amazon.com.be'
+          seller_central_url: 'https://sellercentral-europe.amazon.com.be'
         },
         'NL' =>	{
           marketplace_id: 'A1805IZSGTT6HS',
           region: 'eu',
-          sell_central_url: 'https://sellercentral.amazon.nl'
+          seller_central_url: 'https://sellercentral.amazon.nl'
         },
         'DE' =>	{
           marketplace_id: 'A1PA6795UKMFR9',
           region: 'eu',
-          sell_central_url: 'https://sellercentral-europe.amazon.com'
+          seller_central_url: 'https://sellercentral-europe.amazon.com'
         },
         'IT' =>	{
           marketplace_id: 'APJ6JRA9NG5V4',
           region: 'eu',
-          sell_central_url: 'https://sellercentral-europe.amazon.com'
+          seller_central_url: 'https://sellercentral-europe.amazon.com'
         },
         'SE' =>	{
           marketplace_id: 'A2NODRKZP88ZB9',
           region: 'eu',
-          sell_central_url: 'https://sellercentral.amazon.se'
+          seller_central_url: 'https://sellercentral.amazon.se'
         },
         'PL' =>	{
           marketplace_id: 'A1C3SOZRARQ6R3',
           region: 'eu',
-          sell_central_url: 'https://sellercentral.amazon.pl'
+          seller_central_url: 'https://sellercentral.amazon.pl'
         },
         'EG' =>	{
           marketplace_id: 'ARBP9OOSHTCHU',
           region: 'eu',
-          sell_central_url: 'https://sellercentral.amazon.eg'
+          seller_central_url: 'https://sellercentral.amazon.eg'
         },
         'TR' =>	{
           marketplace_id: 'A33AVAJ2PDY3EV',
           region: 'eu',
-          sell_central_url: 'https://sellercentral.amazon.com.tr'
+          seller_central_url: 'https://sellercentral.amazon.com.tr'
         },
         'SA' =>	{
           marketplace_id: 'A17E79C6D8DWNP',
           region: 'eu',
-          sell_central_url: 'https://sellercentral.amazon.sa'
+          seller_central_url: 'https://sellercentral.amazon.sa'
         },
         'AE' =>	{
           marketplace_id: 'A2VIGQ35RCS4UG',
           region: 'eu',
-          sell_central_url: 'https://sellercentral.amazon.ae'
+          seller_central_url: 'https://sellercentral.amazon.ae'
         },
         'IN' =>	{
           marketplace_id: 'A21TJRUUN4KGV',
           region: 'eu',
-          sell_central_url: 'https://sellercentral.amazon.in'
+          seller_central_url: 'https://sellercentral.amazon.in'
         },
 
         # Far East
         'SG' => {
           marketplace_id: 'A19VAU5U5O7RUS',
           region: 'fa',
-          sell_central_url: 'https://sellercentral.amazon.sg'
+          seller_central_url: 'https://sellercentral.amazon.sg'
         },
         'AU' => {
           marketplace_id: 'A39IBJ37TRP1C6',
           region: 'fa',
-          sell_central_url: 'https://sellercentral.amazon.com.au'
+          seller_central_url: 'https://sellercentral.amazon.com.au'
         },
         'JP' => {
           marketplace_id: 'A1VC38T7YXB528',
           region: 'fa',
-          sell_central_url: 'https://sellercentral.amazon.co.jp'
+          seller_central_url: 'https://sellercentral.amazon.co.jp'
         }
       }.freeze
 
-      attr_reader :id, :region, :sell_central_url
+      attr_reader :id, :region, :seller_central_url
 
       def initialize(country_code:)
         unless MARKETPLACES.keys.include?(country_code)
@@ -131,7 +131,7 @@ module AmazonSellingPartners
 
         @id = MARKETPLACES[country_code][:marketplace_id]
         @region = MARKETPLACES[country_code][:region]
-        @sell_central_url = MARKETPLACES[country_code][:sell_central_url]
+        @seller_central_url = MARKETPLACES[country_code][:seller_central_url]
       end
     end
   end
