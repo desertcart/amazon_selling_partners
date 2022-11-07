@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../errors/unsupported_country_code_error'
+
 module AmazonSellingPartners
   module Helpers
     class Marketplace
@@ -99,7 +101,12 @@ module AmazonSellingPartners
       attr_reader :id, :region
 
       def initialize(country_code:)
-        raise StandardError "#{country_code} is not supported" unless MARKETPLACES.keys.include?(country_code)
+        unless MARKETPLACES.keys.include?(country_code)
+          raise AmazonSellingPartners::Errors::UnsupportedCountryCodeError.new(
+            country_code:,
+            supported_country_codes: MARKETPLACES.keys
+          )
+        end
 
         @id = MARKETPLACES[country_code][:marketplace_id]
         @region = MARKETPLACES[country_code][:region]
