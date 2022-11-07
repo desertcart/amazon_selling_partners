@@ -75,12 +75,12 @@ module AmazonSellingPartners
         }
       )
 
-      unless data && data[:access_token]
+      unless data && data[:refresh_token]
         raise AmazonSellingPartners::Errors::AuthError.new(code: status_code, response_headers: headers,
                                                            response_body: data)
       end
 
-      data[:access_token]
+      data[:refresh_token]
     end
 
     def api(http_method, path, opts = {}) # rubocop:disable Metrics/MethodLength
