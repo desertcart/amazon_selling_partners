@@ -3,3 +3,6 @@ services:
   app:
     command: /bin/sh -c "while sleep 1000; do :; done"
     build: .
+    volumes:
+      - .:/workspaces/amazon_selling_partners
+    working_dir: /workspaces/amazon_selling_partners
