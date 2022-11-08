@@ -20,6 +20,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'typhoeus', '~> 1.0', '>= 1.0.1'
 
   spec.add_development_dependency 'dotenv'
+  spec.add_development_dependency 'pry'
   spec.add_development_dependency 'rubocop'
 
   spec.metadata['homepage_uri'] = spec.homepage

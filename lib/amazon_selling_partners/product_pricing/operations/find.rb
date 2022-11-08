@@ -11,7 +11,7 @@ module AmazonSellingPartners
         end
 
         def url
-          "/products/pricing/v0/items/#{resource.asin}/offers"\
+          "/products/pricing/v0/items/#{resource.asin}/offers" \
             "?MarketplaceId=#{resource.market_place_id}&ItemCondition=New"
         end
 
