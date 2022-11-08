@@ -4,7 +4,7 @@ require_relative '../errors/unsupported_country_code_error'
 
 module AmazonSellingPartners
   module Helpers
-    class Marketplace
+    class Marketplace # rubocop:disable Metrics/ClassLength
       # https://developer-docs.amazon.com/sp-api/docs/marketplace-ids
       MARKETPLACES = {
         # North America
