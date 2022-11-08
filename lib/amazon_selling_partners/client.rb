@@ -54,11 +54,11 @@ module AmazonSellingPartners
       seller_central_url: 'https://sellercentral.amazon.com', # https://developer-docs.amazon.com/sp-api/docs/seller-central-urls,
       draft: false # Set to true if our application is still in draft mode
     )
+      params = {
+        application_id:, state:, redirect_uri:, version: draft ? 'beta' : nil
+      }.compact
 
-      url = "#{seller_central_url}/apps/authorize/consent?application_id=#{application_id}&state=#{state}"
-      url = "#{url}&redirect_uri=#{redirect_uri}" if redirect_uri.present?
-      url = "#{url}&version=beta" if draft
-      url
+      "#{seller_central_url}/apps/authorize/consent?#{URI.encode_www_form(params)}"
     end
 
     def exchange_auth_code_for_refresh_token(auth_code:) # rubocop:disable Metrics/MethodLength
