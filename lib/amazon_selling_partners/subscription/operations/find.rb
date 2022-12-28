@@ -4,11 +4,12 @@ module AmazonSellingPartners
   class Subscription
     class Operation
       class Find < AmazonSellingPartners::Operation::Find
-
         private
+
         def request_method
           :get
         end
+
         def url
           "/notifications/v1/subscriptions/#{resource.notification_type}"
         end

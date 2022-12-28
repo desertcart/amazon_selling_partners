@@ -4,12 +4,12 @@ module AmazonSellingPartners
   class Subscription
     class Operation
       class Create < AmazonSellingPartners::Operation::Create
-
         private
 
         def request_method
           :post
         end
+
         def url
           "/notifications/v1/subscriptions/#{resource.notification_type}"
         end
@@ -17,7 +17,7 @@ module AmazonSellingPartners
         def opts
           {
             body: {
-              payloadVersion: "1.0",
+              payloadVersion: '1.0',
               destinationId: resource.destination.id
             },
             form_params: {},
