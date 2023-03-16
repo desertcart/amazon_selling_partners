@@ -14,12 +14,23 @@ module AmazonSellingPartners
           "/notifications/v1/subscriptions/#{resource.notification_type}"
         end
 
-        def opts
+        def opts # rubocop:disable Metrics/MethodLength
+          body = {
+            payloadVersion: '1.0',
+            destinationId: resource.destination.id
+          }
+
+          if resource.notification_type == 'ANY_OFFER_CHANGED'
+            body[:processingDirective] = {
+              eventFilter: {
+                eventFilterType: 'ANY_OFFER_CHANGED',
+                marketplaceIds: [resource.marketplace_id]
+              }
+            }
+          end
+
           {
-            body: {
-              payloadVersion: '1.0',
-              destinationId: resource.destination.id
-            },
+            body:,
             form_params: {},
             query_params: {}
           }
