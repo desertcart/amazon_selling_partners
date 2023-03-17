@@ -11,7 +11,7 @@ module AmazonSellingPartners
 
     attribute :id, type: LedgerSync::Type::String
     attribute :notification_type, type: LedgerSync::Type::StringFromSet.new(NOTIFICATION_TYPES)
-    attribute :marketplace_id, type: LedgerSync::Type::String
+    attribute :marketplace_ids, type: LedgerSync::Type::Array
     references_one :destination, to: AmazonSellingPartners::Destination
   end
 end

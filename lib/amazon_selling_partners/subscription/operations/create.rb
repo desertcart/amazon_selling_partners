@@ -24,7 +24,7 @@ module AmazonSellingPartners
             body[:processingDirective] = {
               eventFilter: {
                 eventFilterType: 'ANY_OFFER_CHANGED',
-                marketplaceIds: [resource.marketplace_id]
+                marketplaceIds: resource.marketplace_ids
               }
             }
           end
