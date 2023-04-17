@@ -9,7 +9,7 @@ module AmazonSellingPartners
       attribute :order_total, hash_attribute: 'OrderTotal'
       attribute :shipped_items_count, hash_attribute: 'NumberOfItemsShipped'
       attribute :unshipped_items_count, hash_attribute: 'NumberOfItemsUnshipped'
-      references_one :address, hash_attribute: 'ShippingAddress', deserializer: AmazonSellingPartners::Order::AddressDeserializer
+      references_one :shipping_address, hash_attribute: 'ShippingAddress', deserializer: AmazonSellingPartners::Order::AddressDeserializer
     end
   end
 end
