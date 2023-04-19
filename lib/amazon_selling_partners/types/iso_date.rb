@@ -8,7 +8,7 @@ module AmazonSellingPartners
 
         value = args.fetch(:value)
         return true unless value.is_a?(::String)
-        return false unless value =~ /\A\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\z/
+        return false unless value =~ /\A\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z\z/
 
         true
       end
