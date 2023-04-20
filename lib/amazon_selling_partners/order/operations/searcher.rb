@@ -1,15 +1,9 @@
 # frozen_string_literal: true
 
 module AmazonSellingPartners
-  class OrdersList
+  class Order
     class Operation
-      class Find < AmazonSellingPartners::Operation::Find
-
-        def initialize(args = {})
-          @query_params = args.fetch(:query_params)
-          super
-        end
-
+      class Searcher < AmazonSellingPartners::Operation::Searcher
         def operate
           return failure(response.status) if response.failure?
 
@@ -31,12 +25,16 @@ module AmazonSellingPartners
         def url
           "/orders/v0/orders"
         end
-        # ?LastUpdatedAfter=#{resource.last_updated_after}&OrderStatuses=#{resource.order_statuses}&MarketplaceIds=#{resource.marketplace_ids}&NextToken=#{resource.next_token}
         def opts
           {
             body: nil,
             form_params: {},
-            query_params: @query_params
+            query_params: {
+              'MarketplaceIds' => resource.marketplace_id,
+              'LastUpdatedAfter' => resource.last_updated_after,
+              'OrderStatuses' => resource.order_statuses.join(','),
+              'NextToken' =>  resource.next_token
+            }
           }
         end
       end
