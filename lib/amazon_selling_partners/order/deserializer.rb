@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require_relative './order_total_deserializer'
 require_relative './address_deserializer'
 require_relative './order_deserializer'
 
