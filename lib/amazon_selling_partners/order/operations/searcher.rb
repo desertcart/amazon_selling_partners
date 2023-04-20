@@ -5,7 +5,7 @@ module AmazonSellingPartners
     class Operation
       class Searcher < AmazonSellingPartners::Operation::Searcher
         def operate
-          return failure(response.status) if response.failure?
+          return failure(response) if response.failure?
 
           success(
             resource: deserializer.deserialize(
