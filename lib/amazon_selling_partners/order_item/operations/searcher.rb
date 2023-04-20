@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module AmazonSellingPartners
-  class OrderItemsList
+  class OrderItem
     class Operation
-      class Find < AmazonSellingPartners::Operation::Find
+      class Searcher < AmazonSellingPartners::Operation::Searcher
         private
 
         def request_method
