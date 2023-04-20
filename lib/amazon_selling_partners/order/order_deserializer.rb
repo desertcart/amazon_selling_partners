@@ -11,12 +11,12 @@ module AmazonSellingPartners
       attribute :order_status, hash_attribute: 'OrderStatus'
       attribute :shipped_items_count, hash_attribute: 'NumberOfItemsShipped'
       attribute :unshipped_items_count, hash_attribute: 'NumberOfItemsUnshipped'
+      attribute :order_total_amount, hash_attribute: 'OrderTotal.Amount'
+      attribute :order_total_currency, hash_attribute: 'OrderTotal.CurrencyCode'
+
       references_one :shipping_address,
                      hash_attribute: 'ShippingAddress',
                      deserializer: AmazonSellingPartners::Order::AddressDeserializer
-      references_one :order_total,
-                     hash_attribute: 'OrderTotal',
-                     deserializer: AmazonSellingPartners::Order::OrderTotalDeserializer
     end
   end
 end
