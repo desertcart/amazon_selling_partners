@@ -29,7 +29,7 @@ module AmazonSellingPartners
         end
 
         def url
-          "/orders/v0/orders?#{@query_params.map { |key, value| "#{key}=#{value}"}.join('&')}"
+          "/orders/v0/orders"
         end
         # ?LastUpdatedAfter=#{resource.last_updated_after}&OrderStatuses=#{resource.order_statuses}&MarketplaceIds=#{resource.marketplace_ids}&NextToken=#{resource.next_token}
         def opts

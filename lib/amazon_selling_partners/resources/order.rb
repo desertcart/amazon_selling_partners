@@ -8,8 +8,8 @@ module AmazonSellingPartners
     attribute :amazon_order_id, type: LedgerSync::Type::String
     attribute :purchase_date, type: LedgerSync::Type::String
     attribute :order_status, type: LedgerSync::Type::String
-    attribute :shipped_items_count, type: LedgerSync::Type::String
-    attribute :unshipped_items_count, type: LedgerSync::Type::String
+    attribute :shipped_items_count, type: LedgerSync::Type::Integer
+    attribute :unshipped_items_count, type: LedgerSync::Type::Integer
     references_one :shipping_address, to: AmazonSellingPartners::ShippingAddress
     references_one :order_total, to: AmazonSellingPartners::OrderTotal
   end
