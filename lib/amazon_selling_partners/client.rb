@@ -92,7 +92,7 @@ module AmazonSellingPartners
         body: signed_opts.fetch(:body),
         headers: signed_opts.fetch(:header_params).merge(DEFAULT_HEADERS),
         method: http_method,
-        url: asp_endpoint + path,
+        url: unsigned_request.url,
         params: signed_opts.fetch(:form_params)
       )
 
