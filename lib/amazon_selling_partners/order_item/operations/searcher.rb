@@ -4,6 +4,18 @@ module AmazonSellingPartners
   class OrderItem
     class Operation
       class Searcher < AmazonSellingPartners::Operation::Searcher
+        def operate
+          return failure(response) if response.failure?
+
+          success(
+            resource: deserializer.deserialize(
+              hash: response.body,
+              resource:
+            ),
+            response: response.body
+          )
+        end
+
         private
 
         def request_method
