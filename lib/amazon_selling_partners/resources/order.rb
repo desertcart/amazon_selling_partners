@@ -7,6 +7,7 @@ module AmazonSellingPartners
   class Order < AmazonSellingPartners::Resource
     attribute :amazon_order_id, type: LedgerSync::Type::String
     attribute :seller_order_id, type: LedgerSync::Type::String
+    attribute :latest_delivery_date, type: LedgerSync::Type::String
     attribute :purchase_date, type: LedgerSync::Type::String
     attribute :order_status, type: LedgerSync::Type::String
     attribute :shipped_items_count, type: LedgerSync::Type::Integer
