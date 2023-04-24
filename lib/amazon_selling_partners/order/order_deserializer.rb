@@ -6,6 +6,8 @@ module AmazonSellingPartners
   class Order
     class OrderDeserializer < LedgerSync::Deserializer
       attribute :amazon_order_id, hash_attribute: 'AmazonOrderId'
+      attribute :seller_order_id, hash_attribute: 'SellerOrderId'
+      attribute :latest_delivery_date, hash_attribute: 'LatestDeliveryDate'
       attribute :purchase_date, hash_attribute: 'PurchaseDate'
       attribute :order_status, hash_attribute: 'OrderStatus'
       attribute :shipped_items_count, hash_attribute: 'NumberOfItemsShipped'
