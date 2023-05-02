@@ -4,7 +4,7 @@ require_relative './address_deserializer'
 
 module AmazonSellingPartners
   class Order
-    class OrderDeserializer < LedgerSync::Deserializer
+    class SearcherDeserializer < LedgerSync::Deserializer
       attribute :amazon_order_id, hash_attribute: 'AmazonOrderId'
       attribute :seller_order_id, hash_attribute: 'SellerOrderId'
       attribute :latest_delivery_date, hash_attribute: 'LatestDeliveryDate'

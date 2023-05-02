@@ -4,16 +4,20 @@ module AmazonSellingPartners
   class OrderItem
     class Operation
       class Searcher < AmazonSellingPartners::Operation::Searcher
-        def operate
-          return failure(response) if response.failure?
+        def resources
+          @resources ||= begin
+           return response.body
+                          .dig("payload", "OrderItems")
+                          .map { |o| deserialized_resource(hash: o) } if response.status == 200
 
-          success(
-            resource: deserializer.deserialize(
-              hash: response.body,
-              resource:
-            ),
-            response: response.body
-          )
+           []
+         end
+        end
+
+        def next_token
+          return response.body.dig('payload', 'NextToken') if response.status == 200
+
+          nil
         end
 
         private
@@ -23,14 +27,16 @@ module AmazonSellingPartners
         end
 
         def url
-          "/orders/v0/orders/#{resource.amazon_order_id}/orderItems?NextToken=#{resource.next_token}"
+          "/orders/v0/orders/#{query['amazon_order_id']}/orderItems"
         end
 
         def opts
           {
             body: nil,
             form_params: {},
-            query_params: {}
+            query_params: {
+              'NextToken' => query['NextToken'],
+            }
           }
         end
       end

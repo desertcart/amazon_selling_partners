@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-
 module AmazonSellingPartners
   class OrderItem
-    class ItemDeserializer < LedgerSync::Deserializer
+    class SearcherDeserializer < LedgerSync::Deserializer
       attribute :asin, hash_attribute: 'ASIN'
       attribute :seller_sku, hash_attribute: 'SellerSKU'
       attribute :amazon_order_item_id, hash_attribute: 'OrderItemId'

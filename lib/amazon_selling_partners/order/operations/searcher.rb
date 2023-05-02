@@ -4,16 +4,20 @@ module AmazonSellingPartners
   class Order
     class Operation
       class Searcher < AmazonSellingPartners::Operation::Searcher
-        def operate
-          return failure(response) if response.failure?
+        def resources
+          @resources ||= begin
+            return response.body
+                   .dig("payload", "Orders")
+                   .map { |o| deserialized_resource(hash: o) } if response.status == 200
 
-          success(
-            resource: deserializer.deserialize(
-              hash: response.body,
-              resource:
-            ),
-            response: response.body
-          )
+           []
+          end
+        end
+
+        def next_token
+          return response.body.dig('payload', 'NextToken') if response.status == 200
+
+          nil
         end
 
         private
@@ -27,13 +31,13 @@ module AmazonSellingPartners
         end
         def opts
           {
-            body: nil,
+            body: {},
             form_params: {},
             query_params: {
-              'MarketplaceIds' => resource.marketplace_id,
-              'LastUpdatedAfter' => resource.last_updated_after,
-              'OrderStatuses' => resource.order_statuses.join(','),
-              'NextToken' =>  resource.next_token
+              'LastUpdatedAfter' => query['LastUpdatedAfter'],
+              'NextToken' => query['NextToken'],
+              'MarketplaceIds' => query['MarketplaceIds'],
+              'OrderStatuses' => query['OrderStatuses'],
             }
           }
         end
