@@ -31,7 +31,7 @@ module AmazonSellingPartners
         end
         def opts
           {
-            body: {},
+            body: nil,
             form_params: {},
             query_params: {
               'LastUpdatedAfter' => query['LastUpdatedAfter'],
