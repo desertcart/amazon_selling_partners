@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'aws-sigv4'
   spec.add_runtime_dependency 'json', '>= 1.8'
-  spec.add_runtime_dependency 'ledger_sync', '~> 2.3.1'
+  spec.add_runtime_dependency 'ledger_sync'
   spec.add_runtime_dependency 'typhoeus', '~> 1.0', '>= 1.0.1'
 
   spec.add_development_dependency 'dotenv'
