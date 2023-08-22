@@ -126,17 +126,20 @@ module AmazonSellingPartners
     end
 
     def request_lwa_access_token # rubocop:disable Metrics/MethodLength
+      form_params = {
+        grant_type: refresh_token ? 'refresh_token' : 'client_credentials',
+        client_id:,
+        client_secret:
+      }
+      form_params.merge!(refresh_token:) if refresh_token.present?
+      form_params.merge!(scope: 'sellingpartnerapi::notifications') if refresh_token.nil?
+
       data, status_code, headers = call_api(
         :POST, '/auth/o2/token',
         header_params: {
           'Content-Type' => 'application/x-www-form-urlencoded'
         },
-        form_params: {
-          grant_type: 'refresh_token',
-          refresh_token:,
-          client_id:,
-          client_secret:
-        }
+        form_params:
       )
 
       unless data && data[:access_token]

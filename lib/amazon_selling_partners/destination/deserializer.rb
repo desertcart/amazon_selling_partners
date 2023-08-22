@@ -3,7 +3,7 @@
 module AmazonSellingPartners
   class Destination
     class Deserializer < AmazonSellingPartners::Deserializer
-      attribute :id, hash_attribute: 'destinationId'
+      attribute :id, hash_attribute: 'payload.destinationId'
     end
   end
 end
