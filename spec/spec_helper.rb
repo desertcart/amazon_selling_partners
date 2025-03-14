@@ -103,10 +103,6 @@ RSpec.configure do |config|
   # Use documentation formatter for better output
   config.default_formatter = 'doc'
 
-  # Prevent duplicate test runs and global DSL pollution
-  config.expose_dsl_globally = false
-
-  # Clear any loaded examples before running
   config.before(:suite) do
     FactoryBot.find_definitions
   end

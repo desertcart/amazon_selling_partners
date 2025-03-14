@@ -75,38 +75,6 @@ module AmazonSellingPartners
                   }
                 ]
               }
-              # patches: [
-              #   {
-              #     op: 'replace',
-              #     path: '/attributes/purchasable_offer',
-              #     value: [
-              #       {
-              #         #audience: 'ALL',
-              #         currency: 'AED',
-              #         our_price: [
-              #           { schedule: [{ value_with_tax: feed_content.price }] }
-              #         ],
-              #         minimum_seller_allowed_price: [
-              #           { schedule: [{ value_with_tax: feed_content.maximum_seller_allowed_price }] }
-              #         ],
-              #         maximum_seller_allowed_price: [
-              #           { schedule: [{ value_with_tax: feed_content.minimum_seller_allowed_price }] }
-              #         ]
-              #       }
-              #     ]
-              #   },
-              #   {
-              #     op: 'replace',
-              #     path: '/attributes/fulfillment_availability',
-              #     value: [
-              #       {
-              #         fulfillment_channel_code: 'DEFAULT',
-              #         quantity: feed_content.quantity,
-              #         lead_time_to_ship_max_days: feed_content.handling_time
-              #       }
-              #     ]
-              #   }
-              # ]
             }
           end
         end
