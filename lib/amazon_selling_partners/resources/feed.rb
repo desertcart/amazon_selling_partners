@@ -10,6 +10,7 @@ module AmazonSellingPartners
       values: %w[
         POST_FLAT_FILE_PRICEANDQUANTITYONLY_UPDATE_DATA
         POST_FLAT_FILE_INVLOADER_DATA
+        JSON_LISTINGS_FEED
       ]
     }.freeze
 

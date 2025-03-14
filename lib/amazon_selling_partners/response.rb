@@ -6,14 +6,16 @@ module AmazonSellingPartners
                 :headers,
                 :raw,
                 :request,
-                :status
+                :status,
+                :message
 
-    def initialize(request:, status:, body: nil, headers: {}, raw: nil, convert_to_json: true) # rubocop:disable Metrics/ParameterLists
+    def initialize(request:, status:, message: nil, body: nil, headers: {}, raw: nil, convert_to_json: true) # rubocop:disable Metrics/ParameterLists
       @body = convert_to_json ? parse_json(body) : body
       @headers = headers
       @raw = raw
       @request = request
       @status = status
+      @message = message
     end
 
     def failure?
@@ -30,7 +32,8 @@ module AmazonSellingPartners
         headers: typhoeus_response.headers,
         raw: typhoeus_response,
         request:,
-        status: typhoeus_response.options[:response_code].to_i,
+        status: typhoeus_response.code,
+        message: typhoeus_response.status_message,
         convert_to_json:
       )
     end
