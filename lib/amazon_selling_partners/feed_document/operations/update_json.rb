@@ -2,7 +2,6 @@
 
 require 'net/http'
 require 'uri'
-require 'csv'
 
 module AmazonSellingPartners
   class FeedDocument
@@ -39,7 +38,7 @@ module AmazonSellingPartners
         def build_body
           {
             header: {
-              sellerId: 'A10LE8TF2RTIHL',
+              sellerId: resource.seller_id,
               version: '2.0'
             },
             messages: messages
