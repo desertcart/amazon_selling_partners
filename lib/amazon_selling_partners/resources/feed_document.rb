@@ -8,6 +8,7 @@ module AmazonSellingPartners
     attribute :url, type: LedgerSync::Type::String
     attribute :feed_document_id, type: LedgerSync::Type::String
     attribute :content_attributes, type: AmazonSellingPartners::Type::Array
+    attribute :seller_id, type: LedgerSync::Type::String
     # Case: POST_FLAT_FILE_PRICEANDQUANTITYONLY_UPDATE_DATA
     # [:sku, :quantity, :price, :maximum_seller_allowed_price, :minimum_seller_allowed_price, :handling_time]
     # Case: POST_FLAT_FILE_INVLOADER_DATA
