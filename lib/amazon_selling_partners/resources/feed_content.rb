@@ -3,7 +3,7 @@
 module AmazonSellingPartners
   class FeedContent < AmazonSellingPartners::Resource
     # Common attributes
-    attribute :id, type: LedgerSync::Type::Integer
+    attribute :ref_id, type: LedgerSync::Type::Integer
     attribute :sku, type: LedgerSync::Type::Integer
     attribute :price, type: LedgerSync::Type::String
     attribute :quantity, type: LedgerSync::Type::Integer

@@ -8,7 +8,7 @@ module AmazonSellingPartners
       attribute :ledger_errors do |response|
         response[:hash]['issues']&.map do |issue|
           {
-            product_id: issue["messageId"],
+            ref_id: issue["messageId"],
             code: issue["code"],
             severity: issue["severity"],
             message: issue["message"],

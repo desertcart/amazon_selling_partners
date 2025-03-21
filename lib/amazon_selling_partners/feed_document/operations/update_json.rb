@@ -48,7 +48,7 @@ module AmazonSellingPartners
         def messages
           resource.feed_contents.map do |feed_content|
             {
-              messageId: feed_content.id,
+              messageId: feed_content.ref_id,
               sku: feed_content.sku.to_s,
               operationType: 'PARTIAL_UPDATE',
               productType: 'PRODUCT',

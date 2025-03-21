@@ -19,7 +19,7 @@ RSpec.describe AmazonSellingPartners::FeedDocument::Operation::UpdateJson do
       before do
         stub_request(:put, feed_document.url).
           with(
-            body: "{\"header\":{\"sellerId\":\"A10LE8TF2RTIHL\",\"version\":\"2.0\"},\"messages\":[{\"messageId\":1,\"sku\":\"50611000\",\"operationType\":\"PARTIAL_UPDATE\",\"productType\":\"PRODUCT\",\"attributes\":{\"fulfillment_availability\":[{\"fulfillment_channel_code\":\"DEFAULT\",\"quantity\":2,\"lead_time_to_ship_max_days\":3}],\"purchasable_offer\":[{\"our_price\":[{\"schedule\":[{\"value_with_tax\":\"307.05\"}]}],\"maximum_seller_allowed_price\":[{\"schedule\":[{\"value_with_tax\":\"307.05\"}]}],\"minimum_seller_allowed_price\":[{\"schedule\":[{\"value_with_tax\":\"307.05\"}]}]}]}}]}",
+            body: "{\"header\":{\"sellerId\":\"A10LE8TF2RTIHL\",\"version\":\"2.0\"},\"messages\":[{\"messageId\":123,\"sku\":\"50611000\",\"operationType\":\"PARTIAL_UPDATE\",\"productType\":\"PRODUCT\",\"attributes\":{\"fulfillment_availability\":[{\"fulfillment_channel_code\":\"DEFAULT\",\"quantity\":2,\"lead_time_to_ship_max_days\":3}],\"purchasable_offer\":[{\"our_price\":[{\"schedule\":[{\"value_with_tax\":\"307.05\"}]}],\"maximum_seller_allowed_price\":[{\"schedule\":[{\"value_with_tax\":\"307.05\"}]}],\"minimum_seller_allowed_price\":[{\"schedule\":[{\"value_with_tax\":\"307.05\"}]}]}]}}]}",
             headers: { 'Content-Type'=>'application/json' }
           ).to_return(status: 200, body: "", headers: {})
       end

@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :feed_content, class: 'AmazonSellingPartners::FeedContent' do
-    id { 123 }
+    ref_id { 123 }
     sku { 50611000 }
     quantity { 2 }
     handling_time { 3 }
