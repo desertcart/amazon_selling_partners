@@ -65,9 +65,12 @@ module AmazonSellingPartners
                 quantity: feed_content.quantity,
                 lead_time_to_ship_max_days: feed_content.handling_time
               }.compact
-            ],
-            purchasable_offer: [build_purchasable_offer(feed_content)]
-          }
+            ]
+          }.tap do |attrs|
+            purchasable_offer = build_purchasable_offer(feed_content)
+
+            attrs[:purchasable_offer] = [purchasable_offer] if purchasable_offer.present?
+          end
         end
 
         def build_purchasable_offer(feed_content)

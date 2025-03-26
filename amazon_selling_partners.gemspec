@@ -5,7 +5,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = 'amazon_selling_partners'
-  spec.version       = '0.3.1'
+  spec.version       = '0.3.2'
   spec.authors       = ['Kostas Kostoglou']
   spec.email         = ['kostas@dropbot.sh']
 

@@ -39,7 +39,7 @@ RSpec.describe AmazonSellingPartners::FeedDocument::Operation::UpdateJson do
                 minimum_seller_allowed_price: nil,
                 maximum_seller_allowed_price: nil)
         end
-        let(:request_body) { "{\"header\":{\"sellerId\":\"A10LE8TF2RTIHL\",\"version\":\"2.0\"},\"messages\":[{\"messageId\":123,\"sku\":\"50611000\",\"operationType\":\"PARTIAL_UPDATE\",\"productType\":\"PRODUCT\",\"attributes\":{\"fulfillment_availability\":[{\"fulfillment_channel_code\":\"DEFAULT\"}],\"purchasable_offer\":[{}]}}]}" }
+        let(:request_body) { "{\"header\":{\"sellerId\":\"A10LE8TF2RTIHL\",\"version\":\"2.0\"},\"messages\":[{\"messageId\":123,\"sku\":\"50611000\",\"operationType\":\"PARTIAL_UPDATE\",\"productType\":\"PRODUCT\",\"attributes\":{\"fulfillment_availability\":[{\"fulfillment_channel_code\":\"DEFAULT\"}]}}]}" }
 
         it 'returns successful result' do
           operation.perform
