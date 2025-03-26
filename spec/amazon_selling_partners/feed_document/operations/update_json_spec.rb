@@ -16,19 +16,37 @@ RSpec.describe AmazonSellingPartners::FeedDocument::Operation::UpdateJson do
 
   context "#perform" do
     context "with successful response" do
+      let(:request_body) { "{\"header\":{\"sellerId\":\"A10LE8TF2RTIHL\",\"version\":\"2.0\"},\"messages\":[{\"messageId\":123,\"sku\":\"50611000\",\"operationType\":\"PARTIAL_UPDATE\",\"productType\":\"PRODUCT\",\"attributes\":{\"fulfillment_availability\":[{\"fulfillment_channel_code\":\"DEFAULT\",\"quantity\":2,\"lead_time_to_ship_max_days\":3}],\"purchasable_offer\":[{\"our_price\":[{\"schedule\":[{\"value_with_tax\":\"307.05\"}]}],\"maximum_seller_allowed_price\":[{\"schedule\":[{\"value_with_tax\":\"307.05\"}]}],\"minimum_seller_allowed_price\":[{\"schedule\":[{\"value_with_tax\":\"307.05\"}]}]}]}}]}" }
+
       before do
         stub_request(:put, feed_document.url).
-          with(
-            body: "{\"header\":{\"sellerId\":\"A10LE8TF2RTIHL\",\"version\":\"2.0\"},\"messages\":[{\"messageId\":123,\"sku\":\"50611000\",\"operationType\":\"PARTIAL_UPDATE\",\"productType\":\"PRODUCT\",\"attributes\":{\"fulfillment_availability\":[{\"fulfillment_channel_code\":\"DEFAULT\",\"quantity\":2,\"lead_time_to_ship_max_days\":3}],\"purchasable_offer\":[{\"our_price\":[{\"schedule\":[{\"value_with_tax\":\"307.05\"}]}],\"maximum_seller_allowed_price\":[{\"schedule\":[{\"value_with_tax\":\"307.05\"}]}],\"minimum_seller_allowed_price\":[{\"schedule\":[{\"value_with_tax\":\"307.05\"}]}]}]}}]}",
-            headers: { 'Content-Type'=>'application/json' }
-          ).to_return(status: 200, body: "", headers: {})
+          with(body: request_body, headers: { 'Content-Type'=>'application/json' }).
+          to_return(status: 200, body: "", headers: {})
       end
 
       it 'returns successful result' do
         operation.perform
 
         expect(operation.success?).to be true
-     end
+      end
+
+      context "with empty params" do
+        let(:feed_content) do
+          build(:feed_content,
+                quantity: nil,
+                handling_time: nil,
+                price: nil,
+                minimum_seller_allowed_price: nil,
+                maximum_seller_allowed_price: nil)
+        end
+        let(:request_body) { "{\"header\":{\"sellerId\":\"A10LE8TF2RTIHL\",\"version\":\"2.0\"},\"messages\":[{\"messageId\":123,\"sku\":\"50611000\",\"operationType\":\"PARTIAL_UPDATE\",\"productType\":\"PRODUCT\",\"attributes\":{\"fulfillment_availability\":[{\"fulfillment_channel_code\":\"DEFAULT\"}],\"purchasable_offer\":[{}]}}]}" }
+
+        it 'returns successful result' do
+          operation.perform
+
+          expect(operation.success?).to be true
+        end
+      end
     end
 
     context "with fail response" do
