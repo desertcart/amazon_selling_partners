@@ -52,30 +52,41 @@ module AmazonSellingPartners
               sku: feed_content.sku.to_s,
               operationType: 'PARTIAL_UPDATE',
               productType: 'PRODUCT',
-              attributes: {
-                fulfillment_availability: [
-                  {
-                    fulfillment_channel_code: 'DEFAULT',
-                    quantity: feed_content.quantity,
-                    lead_time_to_ship_max_days: feed_content.handling_time
-                  }
-                ],
-                purchasable_offer: [
-                  {
-                    our_price: [
-                      { schedule: [{ value_with_tax: feed_content.price }] }
-                    ],
-                    maximum_seller_allowed_price: [
-                      { schedule: [{ value_with_tax: feed_content.maximum_seller_allowed_price }] }
-                    ],
-                    minimum_seller_allowed_price: [
-                      { schedule: [{ value_with_tax: feed_content.minimum_seller_allowed_price }] }
-                    ]
-                  }
-                ]
-              }
+              attributes: message_attributes(feed_content)
             }
           end
+        end
+
+        def message_attributes(feed_content)
+          {
+            fulfillment_availability: [
+              {
+                fulfillment_channel_code: 'DEFAULT',
+                quantity: feed_content.quantity,
+                lead_time_to_ship_max_days: feed_content.handling_time
+              }.compact
+            ],
+            purchasable_offer: [build_purchasable_offer(feed_content)]
+          }
+        end
+
+        def build_purchasable_offer(feed_content)
+          purchasable_offer = {}
+
+          if feed_content.price.present?
+            purchasable_offer[:our_price] =
+              [{ schedule: [{ value_with_tax: feed_content.price }] }]
+          end
+          if feed_content.maximum_seller_allowed_price.present?
+            purchasable_offer[:maximum_seller_allowed_price] =
+              [{ schedule: [{ value_with_tax: feed_content.maximum_seller_allowed_price }] }]
+          end
+          if feed_content.minimum_seller_allowed_price.present?
+            purchasable_offer[:minimum_seller_allowed_price] =
+              [{ schedule: [{ value_with_tax: feed_content.minimum_seller_allowed_price }] }]
+          end
+
+          purchasable_offer
         end
       end
     end
