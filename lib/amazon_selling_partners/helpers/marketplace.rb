@@ -100,6 +100,11 @@ module AmazonSellingPartners
           region: 'eu',
           seller_central_url: 'https://sellercentral.amazon.in'
         },
+        'ZA' => {
+          marketplace_id: 'AE08WJ6YKNBMC',
+          region: 'eu',
+          seller_central_url: 'https://sellercentral.amazon.co.za'
+        },
 
         # Far East
         'SG' => {
