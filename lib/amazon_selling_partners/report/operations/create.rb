@@ -26,10 +26,13 @@ module AmazonSellingPartners
         end
 
         def body
-          {
+          hash = {
             reportType: resource.report_type,
             marketplaceIds: [resource.marketplace_id],
           }
+          hash[:dataStartTime] = resource.data_start_time if resource.data_start_time.present?
+          hash[:dataEndTime] = resource.data_end_time if resource.data_end_time.present?
+          hash
         end
 
         def query_params
