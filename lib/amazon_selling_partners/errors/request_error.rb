@@ -19,6 +19,7 @@ module AmazonSellingPartners
       def self.for_status(status)
         case status.to_i
         when 401, 403 then Unauthorized
+        when 404 then NotFound
         when 429 then Throttled
         when 500..599 then ServerError
         else RequestError
@@ -43,6 +44,9 @@ module AmazonSellingPartners
         )
       end
     end
+
+    # 404, e.g. a listings item (SKU) the seller doesn't have.
+    class NotFound < RequestError; end
 
     # 429 / QuotaExceeded.
     class Throttled < RequestError; end
