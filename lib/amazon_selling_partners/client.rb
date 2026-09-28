@@ -143,9 +143,10 @@ module AmazonSellingPartners
       )
 
       unless data && data[:access_token]
-        raise StandardError, { code: status_code,
-                               response_headers: headers,
-                               response_body: data }.to_s
+        # AuthError is a StandardError, so existing rescues keep working, while
+        # callers can now tell a rejected refresh token apart from other failures.
+        raise AmazonSellingPartners::Errors::AuthError.new(code: status_code, response_headers: headers,
+                                                           response_body: data)
       end
       data
     end

@@ -182,3 +182,28 @@ resource = AmazonSellingPartners::ProductPricing.new(market_place_id: 'A2VIGQ35R
 operation = AmazonSellingPartners::ProductPricing::Operation::Find.new(client: client, resource: resource)
 operation.perform
 ```
+
+### Example of fetching offers for up to 20 ASINs at once (getItemOffersBatch)
+Keyed by ASIN, so it also works for items you don't list. Each item comes back as a
+`ProductPricing` with `status_code`, `offers`, `total_offer_count`, and `error_code` /
+`error_message` when that ASIN failed (for example an ASIN that doesn't exist in the marketplace).
+```ruby
+resource = AmazonSellingPartners::ItemOffersBatch.new(
+  market_place_id: 'A2VIGQ35RCS4UG',
+  asins: %w[B07F2GC4S9 B0DTKCN3Z4] # 1..20 ASINs
+)
+operation = AmazonSellingPartners::ItemOffersBatch::Operation::Find.new(client: client, resource: resource)
+operation.perform
+
+if operation.success?
+  operation.result.resource.items.each do |item|
+    next unless item.status_code == 200
+
+    item.offers.each { |offer| puts [item.asin, offer.seller_id, offer.price, offer.is_prime].inspect }
+  end
+else
+  # AmazonSellingPartners::Errors::Unauthorized (401/403 or a rejected refresh token),
+  # ::Throttled (429), ::ServerError (5xx, timeouts) or ::RequestError
+  operation.result.error
+end
+```
