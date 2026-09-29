@@ -78,12 +78,34 @@ RSpec.describe AmazonSellingPartners::ListingsItem::Operation::Put do
     end
   end
 
-  it 'classifies a rejected token' do
+  it 'classifies a 403 response as Unauthorized' do
     stub_request(:put, item_url).with(query: hash_including({})).to_return(status: 403, body: '{}')
 
     operation.perform
 
     expect(operation.result.error).to be_a(AmazonSellingPartners::Errors::Unauthorized)
+  end
+
+  context 'when the refresh token is rejected' do
+    before { stub_token(status: 400, body: { error: 'invalid_grant', error_description: 'revoked' }) }
+
+    it 'fails with Unauthorized without submitting' do
+      operation.perform
+
+      expect(operation.result.error).to be_a(AmazonSellingPartners::Errors::Unauthorized)
+      expect(a_request(:put, item_url)).not_to have_been_made
+    end
+  end
+
+  context 'when the token endpoint does not answer' do
+    before { stub_request(:post, 'https://api.amazon.com/auth/o2/token').to_timeout }
+
+    it 'fails with ServerError without submitting' do
+      operation.perform
+
+      expect(operation.result.error).to be_a(AmazonSellingPartners::Errors::ServerError)
+      expect(a_request(:put, item_url)).not_to have_been_made
+    end
   end
 end
 

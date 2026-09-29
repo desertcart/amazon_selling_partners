@@ -14,7 +14,7 @@ module AmazonSellingPartners
           assign_results
           success(resource:, response: response.body)
         rescue Errors::AuthError => e
-          failure(Errors::Unauthorized.from_auth_error(e))
+          failure(Errors::RequestError.from_auth_error(e))
         rescue Faraday::Error => e
           failure(Errors::ServerError.new(message: e.message))
         end

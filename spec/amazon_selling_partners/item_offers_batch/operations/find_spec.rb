@@ -169,6 +169,17 @@ RSpec.describe AmazonSellingPartners::ItemOffersBatch::Operation::Find do
     end
   end
 
+  context 'when the token endpoint does not answer' do
+    before { stub_request(:post, 'https://api.amazon.com/auth/o2/token').to_timeout }
+
+    it 'fails with ServerError, not Unauthorized' do
+      operation.perform
+
+      expect(operation.result.error).to be_an_instance_of(AmazonSellingPartners::Errors::ServerError)
+      expect(a_request(:post, batch_url)).not_to have_been_made
+    end
+  end
+
   context 'when the batch call times out' do
     before { stub_request(:post, batch_url).to_timeout }
 

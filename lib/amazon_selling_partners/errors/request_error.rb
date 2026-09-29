@@ -32,18 +32,26 @@ module AmazonSellingPartners
           status: response.status, response_body: response.body, response_headers: response.headers
         )
       end
+
+      # A failed LWA token refresh, by the token endpoint's answer: rejected
+      # credentials are Unauthorized, while no answer (status 0, e.g. a timeout)
+      # or a 5xx is a ServerError and 429 is Throttled.
+      def self.from_auth_error(error)
+        klass = case error.code.to_i
+                when 0, 500..599 then ServerError
+                when 429 then Throttled
+                else Unauthorized
+                end
+        klass.new(
+          status: error.code, response_body: error.response_body, response_headers: error.response_headers,
+          message: "LWA token refresh failed: #{error.message}"
+        )
+      end
     end
 
     # 401/403 from the API, or the LWA token refresh was rejected
     # (revoked or invalid refresh token).
-    class Unauthorized < RequestError
-      def self.from_auth_error(error)
-        new(
-          status: error.code, response_body: error.response_body, response_headers: error.response_headers,
-          message: "LWA token refresh rejected: #{error.message}"
-        )
-      end
-    end
+    class Unauthorized < RequestError; end
 
     # 404, e.g. a listings item (SKU) the seller doesn't have.
     class NotFound < RequestError; end

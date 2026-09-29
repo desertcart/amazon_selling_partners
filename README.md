@@ -109,7 +109,10 @@ existing = AmazonSellingPartners::ListingsItem::Operation::Find.new(
   )
 )
 existing.perform
-existing.result.error # => AmazonSellingPartners::Errors::NotFound when the SKU is free
+# putListingsItem would replace an existing listing: only carry on when the SKU is free
+unless existing.result.error.is_a?(AmazonSellingPartners::Errors::NotFound)
+  raise existing.result.error || 'MY-SKU is already listed'
+end
 
 listing = AmazonSellingPartners::ListingsItem.new(
   seller_id: 'A1B2C3D4E5F6G7', sku: 'MY-SKU', marketplace_id: marketplace_id,
@@ -128,12 +131,18 @@ operation = AmazonSellingPartners::ListingsItem::Operation::Put.new(client: clie
 operation.perform
 operation.result.resource.status # => "VALID" (preview), "ACCEPTED" or "INVALID"
 operation.result.resource.issues # => [{ "code" => ..., "message" => ..., "severity" => "ERROR" }, ...]
+```
 
-# Remove it again
+### Example of deleting a listing
+
+Removes the seller's listing for a SKU on the marketplace, for real (there is no preview
+mode). Fails with `AmazonSellingPartners::Errors::NotFound` when the seller has no such SKU.
+
+```ruby
 delete = AmazonSellingPartners::ListingsItem::Operation::Delete.new(
   client: client,
   resource: AmazonSellingPartners::ListingsItem.new(
-    seller_id: 'A1B2C3D4E5F6G7', sku: 'MY-SKU', marketplace_id: marketplace_id
+    seller_id: 'A1B2C3D4E5F6G7', sku: 'MY-SKU', marketplace_id: 'A2VIGQ35RCS4UG'
   )
 )
 delete.perform
