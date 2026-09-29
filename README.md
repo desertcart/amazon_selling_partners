@@ -128,6 +128,16 @@ operation = AmazonSellingPartners::ListingsItem::Operation::Put.new(client: clie
 operation.perform
 operation.result.resource.status # => "VALID" (preview), "ACCEPTED" or "INVALID"
 operation.result.resource.issues # => [{ "code" => ..., "message" => ..., "severity" => "ERROR" }, ...]
+
+# Remove it again
+delete = AmazonSellingPartners::ListingsItem::Operation::Delete.new(
+  client: client,
+  resource: AmazonSellingPartners::ListingsItem.new(
+    seller_id: 'A1B2C3D4E5F6G7', sku: 'MY-SKU', marketplace_id: marketplace_id
+  )
+)
+delete.perform
+delete.result.resource.status # => "ACCEPTED"
 ```
 
 ### Example of fetching offers for a product by ASIN

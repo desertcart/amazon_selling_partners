@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'uri'
 require_relative '../../operation/classified_errors'
+require_relative 'item_path'
 
 module AmazonSellingPartners
   class ListingsItem
@@ -15,6 +15,7 @@ module AmazonSellingPartners
       # VALIDATION_PREVIEW mode), submission_id and issues.
       class Put < AmazonSellingPartners::Operation::Update
         include AmazonSellingPartners::Operation::ClassifiedErrors
+        include ItemPath
 
         private
 
@@ -23,15 +24,8 @@ module AmazonSellingPartners
         end
 
         def url
-          query = { marketplaceIds: resource.marketplace_id, includedData: 'issues',
-                    mode: resource.mode.presence }.compact
-          "/listings/2021-08-01/items/#{resource.seller_id}/#{escaped_sku}" \
-            "?#{URI.encode_www_form(query)}"
-        end
-
-        # A path segment: spaces become %20, not +.
-        def escaped_sku
-          URI.encode_www_form_component(resource.sku).gsub('+', '%20')
+          item_path(marketplaceIds: resource.marketplace_id, includedData: 'issues',
+                    mode: resource.mode.presence)
         end
 
         def opts
